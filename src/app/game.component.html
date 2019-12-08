@@ -1,0 +1,122 @@
+<div
+  class="card text-success bg-dark"
+  style="margin-top:100px;"
+  *ngIf="webService.steamGame_list | async; let game"
+>
+  <div class="card-header">
+    {{ game.name }}
+  </div>
+  <img
+    class="card-img-top"
+    src="https://steamcdn-a.akamaihd.net/steam/apps/{{ game.appid }}/header.jpg"
+    alt="Image Unavailable"
+  />
+  <div class="card-body">
+    Released in {{ game.release_date }}
+    <br />
+    Average Playtime is {{ game.average_playtime }} Hours
+    <br />
+    Achievements available: {{ game.achievements }}<br />
+    Developer:
+    <a *ngFor="let item of game.developer"> {{ item }}, </a>
+    <br />
+    Publisher:
+    <a *ngFor="let item of game.publisher"> {{ item }}, </a>
+    <br />
+    Genres:
+    <a *ngFor="let item of game.genres"> {{ item }}, </a>
+    <br />
+    Platforms:
+    <a *ngFor="let item of game.platforms"> {{ item }}, </a>
+    <br />
+    Categories:
+    <a *ngFor="let item of game.categories"> {{ item }}, </a><br />
+    Comments:
+    <a *ngFor="let item of game.comments"> {{ item.comment }}, </a>
+    <br />
+    <a
+      href="https://store.steampowered.com/app/{{
+        webService.steamGame_list.appid
+      }}"
+      class="btn btn-success"
+      >Product Link</a
+    >
+  </div>
+
+  <div class="card-footer">Price: £{{ game.price }} <br /></div>
+  <div class="comment container">
+    <div class="row">
+      <div class="col-sm-12">
+        <div
+          class="card bg-light mb-3"
+          *ngFor="let comment of webService.comments_list | async"
+        >
+          <div class="card-header">Review by {{ comment.username }}</div>
+          <div class="card-body">
+            {{ comment.comment }}
+            <hr />
+            <p>Review: {{ reviewType(comment.review_type) }}</p>
+          </div>
+          <div class="card-footer"></div>
+        </div>
+      </div>
+      <!--col -->
+    </div>
+    <!--row -->
+  </div>
+  <div *ngIf="!authService.loggedIn" class="form container">
+    <div class="row">
+      <div class="col-sm-12"><h2>Please login to post your comment</h2></div>
+    </div>
+  </div>
+  <div *ngIf="authService.loggedIn" class="form container">
+    <div class="row">
+      <div class="col-sm-12">
+        <h2>Post your comment</h2>
+        <form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="username">Username</label
+            ><input
+              type="text"
+              id="username"
+              name="username"
+              class="form-control"
+              formControlName="username"
+              [ngClass]="{ error: isInvalid('username') }"
+            />
+          </div>
+          <div class="form-group">
+            <label for="comment">Tell more about your opinion</label
+            ><textarea
+              id="comment"
+              rows="3"
+              name="comment"
+              class="form-control"
+              formControlName="comment"
+              [ngClass]="{
+                error: isInvalid('comment')
+              }"
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="reviewType">Did you like this game?</label
+            ><select
+              id="reviewType"
+              name="reviewType"
+              class="form-control"
+              formControlName="reviewType"
+            >
+              <option [ngValue]="1">Positive</option>
+              <option [ngValue]="2">Neutral</option>
+              <option [ngValue]="0">Negative</option>
+            </select>
+          </div>
+          <span *ngIf="isIncomplete()"> All fields must be completed. </span>
+          <button *ngIf="!isIncomplete()" type="submit" class="btn btn-primary">
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

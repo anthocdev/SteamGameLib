@@ -1,0 +1,61 @@
+<div class="jumbotron" style="margin-top:100px;">
+  <h1>Steam Directory</h1>
+</div>
+
+<div class="container-fluid">
+  <h2 class="text-success">
+    There is a total of {{ webService.steamGames_lis }} games displayed
+  </h2>
+  <div class="row justify-content-center">
+    <div *ngFor="let game of webService.steamGames_list | async">
+      <div class="col-md-* m-1">
+        <div class="steamListing card text-success bg-dark ">
+          <div class="card-header">{{ game.name }}</div>
+          <img
+            class="card-img-top"
+            src="https://steamcdn-a.akamaihd.net/steam/apps/{{
+              game.appid
+            }}/header.jpg"
+            alt="Image Unavailable"
+          />
+          <div class="card-body">
+            Developed by: Published by: Released in
+            {{ game.release_date }} <br />
+            Average Playtime is {{ game.average_playtime }} Hours <br />
+            Achievements available: {{ game.achievements }}<br />
+            Developer:
+            <a *ngFor="let item of game.developer"> {{ item }}, </a>
+            <br />
+            Publisher:
+            <a *ngFor="let item of game.publisher"> {{ item }}, </a>
+            <br />
+            Genres: <a *ngFor="let item of game.genres"> {{ item }}, </a>
+            <br />
+            Platforms:
+            <a *ngFor="let item of game.platforms"> {{ item }}, </a>
+            <br />
+            Categories:
+            <a *ngFor="let item of game.categories"> {{ item }}, </a><br />
+            <a
+              href="https://store.steampowered.com/app/{{ game.appid }}"
+              class="btn btn-success"
+              >Product Link</a
+            >
+          </div>
+          <div class="card-footer">Price: £{{ game.price }}</div>
+        </div>
+      </div>
+      <!-- Card -->
+    </div>
+    <!-- ngFor-->
+  </div>
+  <!-- Row -->
+  <div class="row">
+    <div class="col-sm-6">
+      <button class="btn btn-primary" (click)="previousPage()">Previous</button>
+    </div>
+    <div class="col-sm-6 text-right">
+      <button class="btn btn-primary" (click)="nextPage()">Next</button>
+    </div>
+  </div>
+</div>

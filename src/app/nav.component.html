@@ -1,0 +1,24 @@
+<div class="navbar navbar-expand-smbg-primary navbar-dark fixed-top">
+  <span class="navbar-brand">Steam Browser</span>
+  <ul class="navbar-nav">
+    <li class="nav-item"><a class="nav-link" routerLink="/">Home</a></li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/games">Games</a>
+    </li>
+  </ul>
+  <div class="form-inline ml-auto">
+    <button
+      class="btn btn-primary"
+      (click)="authService.login()"
+      *ngIf="!authService.loggedIn"
+    >
+      Log In</button
+    ><button
+      class="btn btn-primary"
+      (click)="authService.logout()"
+      *ngIf="authService.loggedIn"
+    >
+      Log Out
+    </button>
+  </div>
+</div>

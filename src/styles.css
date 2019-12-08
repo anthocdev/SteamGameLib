@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+
+.steamListing.card {
+  max-width: 400px;
+  min-height: 400px;
+}
+
+.card-header {
+  font-size: 15px;
+}
+
+.card-body {
+  font-size: 10px;
+}
+
+.card-footer {
+  font-size: 10px;
+}
+
+a.btn {
+  font-size: 10px;
+  padding: 5px;
+  margin-top: 4px;
+}
