@@ -129,4 +129,14 @@ export class AuthService {
       });
     });
   }
+
+  getProfile() {
+    var profileData = null;
+    if (this.loggedIn) {
+      this.userProfile$.forEach(item => {
+        profileData = item;
+      });
+    }
+    return profileData;
+  }
 }

@@ -1,11 +1,9 @@
-<div class="jumbotron" style="margin-top:100px;">
+<div class="jumbotron" style="margin-top:60px;">
   <h1>Steam Directory</h1>
 </div>
 
 <div class="container-fluid">
-  <h2 class="text-success">
-    There is a total of {{ webService.steamGames_lis }} games displayed
-  </h2>
+  <h2 class="text-success">Displaying page {{ this.page }}</h2>
   <div class="row justify-content-center">
     <div *ngFor="let game of webService.steamGames_list | async">
       <div class="col-md-* m-1">
@@ -36,11 +34,7 @@
             <br />
             Categories:
             <a *ngFor="let item of game.categories"> {{ item }}, </a><br />
-            <a
-              href="https://store.steampowered.com/app/{{ game.appid }}"
-              class="btn btn-success"
-              >Product Link</a
-            >
+            <a class="nav-link" routerLink="/games/{{ game.appid }}">Test</a>
           </div>
           <div class="card-footer">Price: £{{ game.price }}</div>
         </div>
@@ -50,7 +44,7 @@
     <!-- ngFor-->
   </div>
   <!-- Row -->
-  <div class="row">
+  <div class="row fixed-bottom" style="margin: 2px;">
     <div class="col-sm-6">
       <button class="btn btn-primary" (click)="previousPage()">Previous</button>
     </div>

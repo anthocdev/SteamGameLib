@@ -30,6 +30,11 @@ export class GameComponent {
 
   onSubmit() {
     console.log(this.commentForm.valid);
+    this.commentForm.controls["username"].setValue(
+      this.authService.getProfile().nickname
+    );
+    //console.log(this.commentForm.value);
+    //console.log(this.authService.getProfile());
     this.webService.postComment(this.commentForm.value);
     this.commentForm.reset();
   }
@@ -42,18 +47,11 @@ export class GameComponent {
   }
 
   isUntouched() {
-    return (
-      this.commentForm.controls.username.pristine ||
-      this.commentForm.controls.comment.pristine
-    );
+    return this.commentForm.controls.comment.pristine;
   }
 
   isIncomplete() {
-    return (
-      this.isInvalid("username") ||
-      this.isInvalid("comment") ||
-      this.isUntouched()
-    );
+    return this.isInvalid("comment") || this.isUntouched();
   }
 
   /* Returns review types by id's */

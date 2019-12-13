@@ -1,0 +1,22 @@
+<div style="margin-top:60px;">
+  <div *ngIf="authService.userProfile$ | async as profile">
+    <div style="color: white">
+      <a><a style="color: red;">Nickname:</a> {{ profile.nickname }}</a> <br />
+      <a><a style="color: red;">Name:</a> {{ profile.name }}</a> <br />
+      <a><a style="color: red;">Profile Pic Link:</a> {{ profile.picture }}</a>
+      <br />
+      <a
+        ><a style="color: red;">Profile Updated At:</a>
+        {{ profile.updated_at }}</a
+      >
+      <br />
+      <a><a style="color: red;">E-Mail:</a> {{ profile.email }}</a> <br />
+      <a
+        ><a style="color: red;">E-Mail Verified?:</a>
+        {{ profile.email_verified }}</a
+      >
+      <br />
+      <a><a style="color: red;">Profile SUB:</a> {{ profile.sub }}</a> <br />
+    </div>
+  </div>
+</div>

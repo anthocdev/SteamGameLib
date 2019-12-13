@@ -21,6 +21,7 @@
     "@angular/router": "~8.2.14",
     "@auth0/auth0-spa-js": "^1.6.0",
     "bootstrap": "^4.4.1",
+    "chart.js": "^2.9.3",
     "jquery": "^3.4.1",
     "popper": "^1.0.1",
     "rxjs": "~6.4.0",

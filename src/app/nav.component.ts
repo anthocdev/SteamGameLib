@@ -7,4 +7,14 @@ import { AuthService } from "./auth.service";
 })
 export class NavComponent {
   constructor(private authService: AuthService) {}
+
+  getProfile() {
+    var profileData = null;
+    if (this.authService.loggedIn) {
+      this.authService.userProfile$.forEach(item => {
+        profileData = item;
+      });
+    }
+    return profileData;
+  }
 }

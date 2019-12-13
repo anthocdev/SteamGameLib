@@ -6,12 +6,15 @@ import { AuthService } from "./auth.service";
 import { RouterModule } from "@angular/router";
 import { ReactiveFormsModule } from "@angular/forms";
 
+import { AuthGuard } from "./Guard/auth.guard";
+
 import { SteamComponent } from "./steam.component";
 import { AppComponent } from "./app.component";
 import { HomeComponent } from "./home.component";
 import { GameComponent } from "./game.component";
 import { NavComponent } from "./nav.component";
-
+import { ProfileComponent } from "./profile.component";
+import { StatisticsComponent } from "./statistics.component";
 var routes = [
   {
     path: "",
@@ -24,6 +27,15 @@ var routes = [
   {
     path: "games/:id",
     component: GameComponent
+  },
+  {
+    path: "profile",
+    component: ProfileComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "statistics",
+    component: StatisticsComponent
   }
 ];
 
@@ -33,7 +45,9 @@ var routes = [
     SteamComponent,
     HomeComponent,
     GameComponent,
-    NavComponent
+    NavComponent,
+    ProfileComponent,
+    StatisticsComponent
   ],
   imports: [
     BrowserModule,

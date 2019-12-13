@@ -1,0 +1,11 @@
+<div style="margin-top: 60px;">
+  <h1 style="color: white;">Statistics Placeholder</h1>
+  <div class="row">
+    <div [hidden]="!gameChart" style="width: 400px;">
+      <canvas id="canvas"> {{ gameChart }}</canvas>
+    </div>
+    <div [hidden]="!tagsChart" style="width: 400px;">
+      <canvas id="tagsCanvas"> {{ tagsChart }}</canvas>
+    </div>
+  </div>
+</div>
