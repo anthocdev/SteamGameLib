@@ -1,22 +1,86 @@
-<div style="margin-top:60px;">
-  <div *ngIf="authService.userProfile$ | async as profile">
-    <div style="color: white">
-      <a><a style="color: red;">Nickname:</a> {{ profile.nickname }}</a> <br />
-      <a><a style="color: red;">Name:</a> {{ profile.name }}</a> <br />
-      <a><a style="color: red;">Profile Pic Link:</a> {{ profile.picture }}</a>
-      <br />
-      <a
-        ><a style="color: red;">Profile Updated At:</a>
-        {{ profile.updated_at }}</a
-      >
-      <br />
-      <a><a style="color: red;">E-Mail:</a> {{ profile.email }}</a> <br />
-      <a
-        ><a style="color: red;">E-Mail Verified?:</a>
-        {{ profile.email_verified }}</a
-      >
-      <br />
-      <a><a style="color: red;">Profile SUB:</a> {{ profile.sub }}</a> <br />
+<div class="profilePage" *ngIf="authService.userProfile$ | async as profile">
+  <div class="row">
+    <div class="col-lg-7 mx-auto text-white text-center pt-5">
+      <h1 class="display-4">Welcome back, {{ profile.nickname }}.</h1>
+      <p class="lead mb-0">Here's your profile:</p>
+    </div>
+  </div>
+  <!-- End -->
+  <div class="row py-5 px-4">
+    <div class="col-xl-4 col-md-6 col-sm-10 mx-auto">
+      <!-- Profile widget -->
+      <div class="bg-white shadow rounded overflow-hidden">
+        <div class="px-4 pt-0 pb-4 bg-dark">
+          <div class="media align-items-end profile-header">
+            <div class="profile mr-3">
+              <img
+                src="{{ profile.picture }}"
+                alt="..."
+                width="130"
+                class="rounded mb-2 img-thumbnail"
+              /><a href="#" class="btn btn-dark btn-sm btn-block"
+                >Edit profile</a
+              >
+            </div>
+            <div class="media-body mb-5 text-white">
+              <h4 class="mt-0 mb-0">{{ profile.nickname }}</h4>
+              <p class="small mb-4">
+                <i class="fa fa-map-marker mr-2"></i>{{ profile.email }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-light p-4 d-flex justify-content-end text-center">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item">
+              <h5 class="font-weight-bold mb-0 d-block">241</h5>
+              <small class="text-muted">
+                <i class="fa fa-picture-o mr-1"></i>Photos</small
+              >
+            </li>
+            <li class="list-inline-item">
+              <h5
+                *ngIf="webService.userComments_list | async as commentsData"
+                class="font-weight-bold mb-0 d-block"
+              >
+                {{ commentsData.length }}
+              </h5>
+              <small class="text-muted">
+                <i class="fa fa-user-circle-o mr-1"></i>Comments</small
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="py-4 px-4">
+          <div
+            class="py-4"
+            *ngIf="webService.userComments_list | async as commentsData"
+          >
+            <h5 class="mb-3">Your recent comments</h5>
+            <div
+              *ngFor="let comment of commentsData"
+              class="p-4 bg-light rounded shadow-sm"
+            >
+              <p class="font-italic mb-0">
+                {{ comment.name }}
+              </p>
+              <ul class="list-inline small text-muted mt-3 mb-0">
+                <li class="list-inline-item">
+                  <i class="fa fa-comment-o mr-2"></i
+                  >{{ comment.comment.postDate }}
+                </li>
+                <li class="list-inline-item">
+                  <i class="fa fa-heart-o mr-2"></i>Experience:
+                  {{ reviewType(comment.comment.review_type) }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End profile widget -->
     </div>
   </div>
 </div>

@@ -5,6 +5,9 @@ import { WebService } from "./web.service";
 import { AuthService } from "./auth.service";
 import { RouterModule } from "@angular/router";
 import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule } from "@angular/forms";
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { InterceptorService } from "./interceptor.service";
 
 import { AuthGuard } from "./Guard/auth.guard";
 
@@ -53,9 +56,15 @@ var routes = [
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
-  providers: [WebService, AuthService],
+  exports: [RouterModule],
+  providers: [
+    WebService,
+    AuthService,
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

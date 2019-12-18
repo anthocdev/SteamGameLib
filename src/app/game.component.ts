@@ -20,7 +20,9 @@ export class GameComponent {
 
   ngOnInit() {
     this.commentForm = this.formBuilder.group({
-      username: ["", Validators.required],
+      username: [""],
+      userid: [""],
+      imageLink: [""],
       comment: ["", Validators.required],
       reviewType: 2
     });
@@ -32,6 +34,11 @@ export class GameComponent {
     console.log(this.commentForm.valid);
     this.commentForm.controls["username"].setValue(
       this.authService.getProfile().nickname
+    );
+    var getId = this.authService.getProfile().sub.split(`|`); //Split auth0 from id
+    this.commentForm.controls["userid"].setValue(getId[1]);
+    this.commentForm.controls["imageLink"].setValue(
+      this.authService.getProfile().picture
     );
     //console.log(this.commentForm.value);
     //console.log(this.authService.getProfile());
@@ -66,5 +73,40 @@ export class GameComponent {
       default:
         return "Invalid value";
     }
+  }
+
+  canDelete(isAdmin, puid) {
+    if (this.authService.loggedIn) {
+      if (isAdmin) {
+        return true;
+      }
+      var getId = this.authService.getProfile().sub.split(`|`);
+
+      if (getId[1] == puid) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  canEdit(puid) {
+    if (this.authService.loggedIn) {
+      var getId = this.authService.getProfile().sub.split(`|`);
+      if (getId[1] == puid) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  deleteComment(gid, cid) {
+    this.webService.deleteComment(gid, cid);
+    console.log(gid, cid);
+  }
+
+  editComment() {
+    console.log("Comment Editing to be implemented.");
   }
 }

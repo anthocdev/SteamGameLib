@@ -1,9 +1,58 @@
 <div class="jumbotron" style="margin-top:60px;">
   <h1>Steam Directory</h1>
+  <h2 style="padding-right: 10px;" class="text-success">
+    Displaying page {{ this.page }}
+  </h2>
 </div>
 
 <div class="container-fluid">
-  <h2 class="text-success">Displaying page {{ this.page }}</h2>
+  <div class="row" style="padding: 10px;">
+    <div
+      style="padding-right: 10px;"
+      class="searchbar form-inline md-form mr-auto mb-4"
+    >
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Game Title"
+        [ngModel]="name"
+        (keyup.enter)="searchName(searchInput.value)"
+        #searchInput
+      />
+      <div class="input-group-prepend">
+        <!-- Sort Type Combobox [Price/Release Date]-->
+        <select
+          class="browser-default custom-select"
+          style="margin-left: 10px;"
+          [ngModel]="sort"
+          (change)="setSort($event.target.value)"
+        >
+          <option value="0" selected="">Sort By</option>
+          <option value="1">Release Date</option>
+          <option value="2">Price</option>
+        </select>
+        <!-- Sort Method Combobox [ASC/DESC]-->
+        <select
+          class="browser-default custom-select"
+          style="margin-left: 10px;"
+          [ngModel]="sortStruct"
+          (change)="setSortStruct($event.target.value)"
+        >
+          <option value="1" selected="">Descending</option>
+          <option value="2">Ascending</option>
+        </select>
+        <!-- Search Button-->
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          (click)="searchName(searchInput.value)"
+          style="margin-left: 10px;"
+        >
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
   <div class="row justify-content-center">
     <div *ngFor="let game of webService.steamGames_list | async">
       <div class="col-md-* m-1">

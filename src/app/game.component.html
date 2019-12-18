@@ -57,6 +57,17 @@
             <hr />
             <p>Review: {{ reviewType(comment.review_type) }}</p>
           </div>
+          <div class="editDelete">
+            <button
+              *ngIf="canDelete(false, comment.userid)"
+              (click)="deleteComment(game.appid, comment._id)"
+            >
+              Delete
+            </button>
+            <button *ngIf="canEdit(comment.userid)" (click)="editComment()">
+              Edit
+            </button>
+          </div>
           <div class="card-footer"></div>
         </div>
       </div>
