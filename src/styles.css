@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 /* You can add global styles to this file, and also import other style files */
+@import "@angular/material/prebuilt-themes/deeppurple-amber.css";
 
 .steamListing.card {
   max-width: 400px;
@@ -22,4 +23,13 @@ a.btn {
   font-size: 10px;
   padding: 5px;
   margin-top: 4px;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }

@@ -1,122 +1,234 @@
-<div
-  class="card text-success bg-dark"
-  style="margin-top: 60px;"
+<main
+  class="mt-5 pt-4 text-white"
   *ngIf="webService.steamGame_list | async; let game"
+  [ngStyle]="{
+    background:
+      'linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.0)), url(https://steamcdn-a.akamaihd.net/steam/apps/' +
+      game.appid +
+      '/page_bg_raw.jpg)',
+    'background-position': 'center',
+    'background-repeat': 'no-repeat'
+  }"
 >
-  <div class="card-header">
-    {{ game.name }}
-  </div>
-  <img
-    class="card-img-top"
-    src="https://steamcdn-a.akamaihd.net/steam/apps/{{ game.appid }}/header.jpg"
-    alt="Image Unavailable"
-  />
-  <div class="card-body">
-    Released in {{ game.release_date }}
-    <br />
-    Average Playtime is {{ game.average_playtime }} Hours
-    <br />
-    Achievements available: {{ game.achievements }}<br />
-    Developer:
-    <a *ngFor="let item of game.developer"> {{ item }}, </a>
-    <br />
-    Publisher:
-    <a *ngFor="let item of game.publisher"> {{ item }}, </a>
-    <br />
-    Genres:
-    <a *ngFor="let item of game.genres"> {{ item }}, </a>
-    <br />
-    Platforms:
-    <a *ngFor="let item of game.platforms"> {{ item }}, </a>
-    <br />
-    Categories:
-    <a *ngFor="let item of game.categories"> {{ item }}, </a><br />
-    Comments:
-    <a *ngFor="let item of game.comments"> {{ item.comment }}, </a>
-    <br />
-    <a
-      href="https://store.steampowered.com/app/{{
-        webService.steamGame_list.appid
-      }}"
-      class="btn btn-success"
-      >Product Link</a
-    >
-  </div>
-
-  <div class="card-footer">Price: £{{ game.price }} <br /></div>
-  <div class="comment container">
+  <div class="container dark-grey-text mt-5">
+    <!--Grid row-->
     <div class="row">
-      <div class="col-sm-12">
-        <div
-          class="card bg-light mb-3"
-          *ngFor="let comment of webService.comments_list | async"
-        >
-          <div class="card-header">Review by {{ comment.username }}</div>
-          <div class="card-body">
-            {{ comment.comment }}
-            <hr />
-            <p>Review: {{ reviewType(comment.review_type) }}</p>
-          </div>
-          <div class="editDelete">
+      <!--Grid column-->
+      <div class="col-md-4 mb-4" style="background: rgba(0, 0, 0, 0.472);">
+        <img
+          src="https://steamcdn-a.akamaihd.net/steam/apps/{{
+            game.appid
+          }}/header.jpg"
+          class="img-fluid"
+          style="padding-top: 10px;"
+          alt=""
+        />
+        <div class="row justify-content-center">
+          <img
+            *ngFor="let item of game.platforms"
+            src="{{ displayOs(item) }}"
+            height="32px"
+            width="32px"
+            style="margin: 2px; margin-top: 12px;"
+          />
+        </div>
+        <p class="row justify-content-center" style="padding-top: 10px;">
+          <span>{{ priceDisplay(game.price) }}</span>
+        </p>
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-md-8 mb-4">
+        <!--Content-->
+        <div class="p-4" style="background: rgba(0, 0, 0, 0.472);">
+          <p class="lead font-weight-bold">{{ game.name }}</p>
+          <p>
+            Positive Ratings:
+            {{
+              displayRatingPercentage(
+                game.negative_ratings,
+                game.positive_ratings
+              )
+            }}%
+          </p>
+          <p>Release Date: {{ game.release_date }}</p>
+
+          <div class="justify-content-left">
+            <!-- Default input -->
+            <!--Categories -->
+            Categories:
             <button
-              *ngIf="canDelete(false, comment.userid)"
-              (click)="deleteComment(game.appid, comment._id)"
+              *ngFor="let item of game.categories"
+              class="btn btn-secondary btn-sm"
+              style="font-size: 10px; padding: 1px; margin: 1px;"
             >
-              Delete
-            </button>
-            <button *ngIf="canEdit(comment.userid)" (click)="editComment()">
-              Edit
-            </button>
+              {{ item }}</button
+            ><br />
+            <!--Genres -->
+            Genres:
+            <button
+              *ngFor="let item of game.genres"
+              class="btn btn-secondary btn-sm"
+              style="font-size: 10px; padding: 1px; margin: 1px;"
+            >
+              {{ item }}</button
+            ><br />
+            <!--Tags -->
+            Tags:
+            <button
+              *ngFor="let item of game.steamspy_tags"
+              class="btn btn-secondary btn-sm"
+              style="font-size: 10px; padding: 1px; margin: 1px;"
+            >
+              {{ item }}</button
+            ><br />
+            <!--Developers -->
+            Developers:
+            <button
+              *ngFor="let item of game.developer"
+              class="btn btn-secondary btn-sm"
+              style="font-size: 10px; padding: 1px; margin: 1px;"
+            >
+              {{ item }}</button
+            ><br />
+            <!--Publishers -->
+            Publishers:
+            <button
+              *ngFor="let item of game.publisher"
+              class="btn btn-secondary btn-sm"
+              style="font-size: 10px; padding: 1px; margin: 1px;"
+            >
+              {{ item }}</button
+            ><br />
+            <br />
           </div>
-          <div class="card-footer"></div>
+        </div>
+        <!--Content-->
+      </div>
+      <!--Grid column-->
+    </div>
+    <!--Grid row-->
+    <hr />
+    <!--Grid row-->
+    <div
+      class="row d-flex justify-content-center"
+      style="background: rgba(0, 0, 0, 0.472);"
+    >
+      <!--Grid column-->
+      <div class="column text-center">
+        <h4 class="my-4 h4">Comments</h4>
+        <p>
+          Comments will be here.
+        </p>
+        <div
+          class="comment-box text-left"
+          *ngFor="let comment of game.comments"
+          style="margin-top: 15px;"
+        >
+          <div class="heading" style="margin-right: 10px;">
+            <img src="{{ comment.imageLink }}" alt="emy" />
+          </div>
+
+          <div class="content">
+            <div class="h-in">
+              <div class="cont">
+                <strong
+                  ><a class="pull-left">{{ comment.username }} </a></strong
+                >
+                <small class="pull-right"> on {{ comment.postDate }}</small>
+                <br />
+              </div>
+              <div class="comment">
+                <p style="margin: 0px">
+                  {{ comment.comment }}
+                </p>
+                <div class="editDelete" style="align-items: top;">
+                  <button
+                    class="btn btn-danger"
+                    *ngIf="canDelete(false, comment.userid)"
+                    (click)="deleteComment(game.appid, comment._id)"
+                  >
+                    Delete
+                  </button>
+                  <button
+                    class="btn btn-secondary"
+                    *ngIf="canEdit(comment.userid)"
+                    (click)="editComment()"
+                  >
+                    Edit
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="CommentPosting" style="margin-top: 20px;">
+          <div *ngIf="!authService.loggedIn" class="form container">
+            <div class="row">
+              <div class="col-sm-12">
+                <h2>Please login to post your comment</h2>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="authService.loggedIn" class="form container">
+            <div class="row">
+              <div class="col-sm-12">
+                <h2>
+                  Hey {{ authService.getProfile().nickname }}, want to leave a
+                  comment?
+                </h2>
+                <form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+                  <div class="form-group">
+                    <label for="comment">Voice your experience here:</label
+                    ><textarea
+                      id="comment"
+                      rows="3"
+                      name="comment"
+                      class="form-control"
+                      formControlName="comment"
+                      [ngClass]="{
+                        error: isInvalid('comment')
+                      }"
+                    ></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="reviewType"
+                      >How was the gameplay experience?</label
+                    ><select
+                      id="reviewType"
+                      name="reviewType"
+                      class="form-control"
+                      formControlName="reviewType"
+                    >
+                      <option [ngValue]="1">Positive</option>
+                      <option [ngValue]="2">Neutral</option>
+                      <option [ngValue]="0">Negative</option>
+                    </select>
+                  </div>
+                  <span *ngIf="isIncomplete()">
+                    All fields must be completed.
+                  </span>
+                  <button
+                    *ngIf="!isIncomplete()"
+                    type="submit"
+                    class="btn btn-primary"
+                  >
+                    Submit
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <!--col -->
+
+      <!--Grid column-->
     </div>
-    <!--row -->
+    <!--Grid row-->
+
+    <!--Grid row-->
+
+    <!--Grid row-->
   </div>
-  <div *ngIf="!authService.loggedIn" class="form container">
-    <div class="row">
-      <div class="col-sm-12"><h2>Please login to post your comment</h2></div>
-    </div>
-  </div>
-  <div *ngIf="authService.loggedIn" class="form container">
-    <div class="row">
-      <div class="col-sm-12">
-        <h2>Post your comment - {{ authService.getProfile().nickname }}</h2>
-        <form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
-          <div class="form-group">
-            <label for="comment">Tell more about your opinion</label
-            ><textarea
-              id="comment"
-              rows="3"
-              name="comment"
-              class="form-control"
-              formControlName="comment"
-              [ngClass]="{
-                error: isInvalid('comment')
-              }"
-            ></textarea>
-          </div>
-          <div class="form-group">
-            <label for="reviewType">Did you like this game?</label
-            ><select
-              id="reviewType"
-              name="reviewType"
-              class="form-control"
-              formControlName="reviewType"
-            >
-              <option [ngValue]="1">Positive</option>
-              <option [ngValue]="2">Neutral</option>
-              <option [ngValue]="0">Negative</option>
-            </select>
-          </div>
-          <span *ngIf="isIncomplete()"> All fields must be completed. </span>
-          <button *ngIf="!isIncomplete()" type="submit" class="btn btn-primary">
-            Submit
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+</main>

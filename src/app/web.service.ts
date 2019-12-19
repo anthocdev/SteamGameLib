@@ -120,7 +120,7 @@ export class WebService {
         postData
       )
       .subscribe(response => {
-        this.getComments(this.appId); //Update comments list
+        this.getGame(this.appId); //Update comments list
       });
   }
 
@@ -131,7 +131,7 @@ export class WebService {
       )
       .subscribe(response => {
         console.log(response);
-        this.getComments(gid); //Update comments list
+        this.getGame(gid); //Update comments list
       });
   }
 
@@ -142,14 +142,5 @@ export class WebService {
         this.platformStats_private_list = response;
         this.platformStatsSubject.next(this.platformStats_private_list);
       });
-  }
-
-  getUserInfo(userId) {
-    const getUser = `https://dev-e8wndv0o.auth0.com/api/v2/users/${userId}`;
-
-    return this.http.get(getUser).subscribe(response => {
-      this.userInfo_private_list = response;
-      this.userInfoSubject.next(this.userInfo_private_list);
-    });
   }
 }

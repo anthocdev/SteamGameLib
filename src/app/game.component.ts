@@ -101,6 +101,36 @@ export class GameComponent {
     return false;
   }
 
+  priceDisplay(price) {
+    if (price > 0) {
+      return "£" + price;
+    } else {
+      return "Free To Play";
+    }
+  }
+
+  displayOs(osName) {
+    switch (osName) {
+      case "windows":
+        return "../assets/img/windows.png";
+        break;
+      case "mac":
+        return "../assets/img/macos.png";
+        break;
+      case "linux":
+        return "../assets/img/linux.png";
+        break;
+      default:
+        return "wrong val";
+        break;
+    }
+  }
+
+  displayRatingPercentage(negative, positive) {
+    var calc = (positive / (negative + positive)) * 100;
+    return calc.toFixed(2);
+  }
+
   deleteComment(gid, cid) {
     this.webService.deleteComment(gid, cid);
     console.log(gid, cid);

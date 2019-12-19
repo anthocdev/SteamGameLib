@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
 import { WebService } from "./web.service";
-
 @Component({
   selector: "steamLibrary",
   templateUrl: "./steam.component.html",
@@ -67,6 +66,7 @@ export class SteamComponent {
     this.name = name;
     this.page = 1;
     sessionStorage.name = String(this.name);
+    sessionStorage.page = Number(this.page);
     this.webService.getGames(
       this.page,
       this.size,
@@ -74,6 +74,11 @@ export class SteamComponent {
       this.sort,
       this.sortStruct
     );
+  }
+
+  setSize(size) {
+    this.size = size;
+    sessionStorage.size = Number(size);
   }
 
   setSort(id) {
@@ -84,6 +89,23 @@ export class SteamComponent {
   setSortStruct(id) {
     this.sortStruct = id;
     sessionStorage.sortStruct = Number(id);
+  }
+
+  displayOs(osName) {
+    switch (osName) {
+      case "windows":
+        return "../assets/img/windows.png";
+        break;
+      case "mac":
+        return "../assets/img/macos.png";
+        break;
+      case "linux":
+        return "../assets/img/linux.png";
+        break;
+      default:
+        return "wrong val";
+        break;
+    }
   }
 
   page = 1;

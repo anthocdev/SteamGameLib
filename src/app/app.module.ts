@@ -18,6 +18,9 @@ import { GameComponent } from "./game.component";
 import { NavComponent } from "./nav.component";
 import { ProfileComponent } from "./profile.component";
 import { StatisticsComponent } from "./statistics.component";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { MatSliderModule } from "@angular/material/slider";
+
 var routes = [
   {
     path: "",
@@ -57,7 +60,9 @@ var routes = [
     HttpClientModule,
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatSliderModule
   ],
   exports: [RouterModule],
   providers: [

@@ -16,13 +16,13 @@
   </ul>
   <div class="form-inline ml-auto">
     <button
-      class="btn btn-primary"
+      class="btn btn-success"
       (click)="authService.login()"
       *ngIf="!authService.loggedIn"
     >
       Log In</button
     ><button
-      class="btn btn-primary"
+      class="btn btn-success"
       (click)="authService.logout()"
       *ngIf="authService.loggedIn"
     >

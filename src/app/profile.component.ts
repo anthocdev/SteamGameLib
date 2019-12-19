@@ -16,6 +16,8 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     var getId = this.authService.getProfile().sub.split(`|`);
     this.webService.getUserComments(getId[1]);
+
+    console.log();
   }
 
   /* Returns review types by id's */

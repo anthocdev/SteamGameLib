@@ -33,12 +33,7 @@
 
         <div class="bg-light p-4 d-flex justify-content-end text-center">
           <ul class="list-inline mb-0">
-            <li class="list-inline-item">
-              <h5 class="font-weight-bold mb-0 d-block">241</h5>
-              <small class="text-muted">
-                <i class="fa fa-picture-o mr-1"></i>Photos</small
-              >
-            </li>
+            <li class="list-inline-item"></li>
             <li class="list-inline-item">
               <h5
                 *ngIf="webService.userComments_list | async as commentsData"
@@ -58,24 +53,40 @@
             class="py-4"
             *ngIf="webService.userComments_list | async as commentsData"
           >
-            <h5 class="mb-3">Your recent comments</h5>
+            <h5 class="mb-3">Comment Feed</h5>
             <div
               *ngFor="let comment of commentsData"
               class="p-4 bg-light rounded shadow-sm"
             >
-              <p class="font-italic mb-0">
-                {{ comment.name }}
-              </p>
-              <ul class="list-inline small text-muted mt-3 mb-0">
-                <li class="list-inline-item">
-                  <i class="fa fa-comment-o mr-2"></i
-                  >{{ comment.comment.postDate }}
-                </li>
-                <li class="list-inline-item">
-                  <i class="fa fa-heart-o mr-2"></i>Experience:
-                  {{ reviewType(comment.comment.review_type) }}
-                </li>
-              </ul>
+              <div class="row">
+                <div class="gamePic">
+                  <img
+                    src="https://steamcdn-a.akamaihd.net/steam/apps/{{
+                      comment.appid
+                    }}/header.jpg"
+                    height="75px"
+                    width="150px"
+                  />
+                </div>
+                <div class="commentData" style="padding-left: 20px;">
+                  <p class="font-weight-bold mb-0">
+                    {{ comment.name }}
+                  </p>
+                  <p class="font-italic mb-0">
+                    {{ comment.comment.comment }}
+                  </p>
+                  <ul class="list-inline small text-muted mt-3 mb-0">
+                    <li class="list-inline-item">
+                      <i class="fa fa-comment-o mr-2"></i
+                      >{{ comment.comment.postDate }}
+                    </li>
+                    <li class="list-inline-item">
+                      <i class="fa fa-heart-o mr-2"></i>Experience:
+                      {{ reviewType(comment.comment.review_type) }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         </div>
