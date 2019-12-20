@@ -35,6 +35,14 @@
         <p class="row justify-content-center" style="padding-top: 10px;">
           <span>{{ priceDisplay(game.price) }}</span>
         </p>
+        <p class="row justify-content-center">
+          <a
+            href="https://store.steampowered.com/app/{{ game.appid }}"
+            class="btn btn-success"
+          >
+            Product Link
+          </a>
+        </p>
       </div>
       <!--Grid column-->
 
@@ -118,9 +126,6 @@
       <!--Grid column-->
       <div class="column text-center">
         <h4 class="my-4 h4">Comments</h4>
-        <p>
-          Comments will be here.
-        </p>
         <div
           class="comment-box text-left"
           *ngFor="let comment of game.comments"
@@ -143,6 +148,11 @@
                 <p style="margin: 0px">
                   {{ comment.comment }}
                 </p>
+                <div>
+                  <small [ngStyle]="reviewTypeStyle(comment.review_type)">{{
+                    reviewType(comment.review_type)
+                  }}</small>
+                </div>
                 <div class="editDelete" style="align-items: top;">
                   <button
                     class="btn btn-danger"
@@ -154,7 +164,7 @@
                   <button
                     class="btn btn-secondary"
                     *ngIf="canEdit(comment.userid)"
-                    (click)="editComment()"
+                    (click)="openDialog(comment)"
                   >
                     Edit
                   </button>

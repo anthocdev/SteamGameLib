@@ -30,10 +30,18 @@ export class WebService {
 
   //Region - Statistics Observables
 
+  //Platform Stats
   private platformStats_private_list;
   private platformStatsSubject = new Subject();
   platfromStats_list = this.platformStatsSubject.asObservable();
-
+  //Publisher Stats
+  private publisherStats_private_list;
+  private publisherStatsSubject = new Subject();
+  publisherStats_list = this.publisherStatsSubject.asObservable();
+  //Category Stats
+  private categoryStats_private_list;
+  private categoryStatsSubject = new Subject();
+  categoryStats_list = this.categoryStatsSubject.asObservable();
   //Endregion
   appId;
   lastPage;
@@ -135,12 +143,65 @@ export class WebService {
       });
   }
 
+  editComment(comment, gid, cid) {
+    let editCommentData = new FormData();
+    editCommentData.append("username", comment.username);
+    editCommentData.append("comment", comment.comment);
+    editCommentData.append("review_type", comment.review_type);
+    editCommentData.append("userid", comment.userid);
+    editCommentData.append("imageLink", comment.imageLink);
+
+    //Store date here
+    let currentDate = new Date();
+    let currentDateVal =
+      currentDate.getFullYear() +
+      "-" +
+      currentDate.getMonth() +
+      "-" +
+      currentDate.getDate() +
+      " " +
+      currentDate.getHours() +
+      ":" +
+      currentDate.getMinutes() +
+      ":" +
+      currentDate.getSeconds();
+    editCommentData.append("postDate", currentDateVal);
+
+    this.http
+      .put(
+        "http://localhost:5000/api/v1.0/games/" + gid + "/comments/" + cid,
+        editCommentData
+      )
+      .subscribe(response => {
+        console.log(response);
+        this.getGame(gid);
+      });
+  }
+
   getPlatformStats() {
     return this.http
       .get("http://localhost:5000/api/v1.0/games/stats/platforms")
       .subscribe(response => {
         this.platformStats_private_list = response;
         this.platformStatsSubject.next(this.platformStats_private_list);
+      });
+  }
+
+  getPublisherStats() {
+    return this.http
+      .get("http://localhost:5000/api/v1.0/games/stats/publisher")
+      .subscribe(response => {
+        this.publisherStats_private_list = response;
+        this.publisherStatsSubject.next(this.publisherStats_private_list);
+      });
+  }
+
+  getCategoryStats() {
+    return this.http
+      .get("http://localhost:5000/api/v1.0/games/stats/categories")
+      .subscribe(response => {
+        this.categoryStats_private_list = response;
+        this.categoryStatsSubject.next(this.categoryStats_private_list);
       });
   }
 }

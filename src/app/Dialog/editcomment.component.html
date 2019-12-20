@@ -1,0 +1,47 @@
+<!-- <h1 mat-dialog-title>Hi {{ data.name }}</h1>
+<div mat-dialog-content class="justify-content-center">
+  <p>Edit Your Comment</p>
+  <mat-form-field>
+    <textarea matInput [(ngModel)]="data.comment"> </textarea>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="closeDialog()">Cancel</button>
+  <button mat-button [mat-dialog-close]="data.comment" cdkFocusInitial>
+    Confirm
+  </button>
+</div> -->
+
+<h2 mat-dialog-title>Hey, {{ data.name }}</h2>
+<mat-dialog-content class="mat-typography">
+  <h3>
+    Edit your comment here.
+  </h3>
+  <textarea
+    style="width: 400px; text-align: left;"
+    matInput
+    [(ngModel)]="data.commentData.comment"
+  >
+  </textarea>
+</mat-dialog-content>
+<mat-dialog-actions align="left" style="background: inherit;">
+  <button
+    class="btn btn-secondary"
+    style="margin-right: 20px;"
+    (click)="closeDialog()"
+  >
+    Cancel
+  </button>
+  <button
+    class="btn btn-secondary"
+    style="margin-right: 20px;"
+    (click)="confirm(data.commentData, data.gid)"
+    cdkFocusInitial
+  >
+    Confirm
+  </button>
+</mat-dialog-actions>
+
+<!-- Copyright 2019 Google LLC. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->

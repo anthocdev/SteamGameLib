@@ -18,9 +18,7 @@
                 alt="..."
                 width="130"
                 class="rounded mb-2 img-thumbnail"
-              /><a href="#" class="btn btn-dark btn-sm btn-block"
-                >Edit profile</a
-              >
+              />
             </div>
             <div class="media-body mb-5 text-white">
               <h4 class="mt-0 mb-0">{{ profile.nickname }}</h4>
@@ -59,7 +57,7 @@
               class="p-4 bg-light rounded shadow-sm"
             >
               <div class="row">
-                <div class="gamePic">
+                <div class="gamePic" routerLink="/games/{{ comment.appid }}">
                   <img
                     src="https://steamcdn-a.akamaihd.net/steam/apps/{{
                       comment.appid

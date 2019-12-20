@@ -1,11 +1,54 @@
 <div style="margin-top: 60px;">
-  <h1 style="color: white;">Statistics Placeholder</h1>
-  <div class="row">
-    <div [hidden]="!gameChart" style="width: 400px;">
-      <canvas id="canvas"> {{ gameChart }}</canvas>
-    </div>
-    <div [hidden]="!platformChart" style="width: 400px;">
-      <canvas id="platformCanvas"> {{ platformChart }}</canvas>
+  <div class="row justify-content-center">
+    <div class="column">
+      <h1 class="row justify-content-center" style="color: white;">
+        General Statistics
+      </h1>
+      <hr />
+      <h2
+        class="row justify-content-center"
+        style="color: white; font-style: italic;"
+      >
+        Top 10 Publishers by Game Count
+      </h2>
+      <div
+        class="row justify-content-center"
+        [hidden]="!publisherChart"
+        style="width: 1200px;"
+      >
+        <canvas class="row justify-content-center" id="canvas">
+          {{ gameChart }}</canvas
+        >
+      </div>
+      <hr />
+      <h2
+        class="row justify-content-center"
+        style="color: white; font-style: italic;"
+      >
+        Game Count by Supported Platform
+      </h2>
+      <div
+        class="row justify-content-center"
+        [hidden]="!platformChart"
+        style="width: 700px; margin: 0 auto;"
+      >
+        <canvas id="platformCanvas"> {{ platformChart }}</canvas>
+      </div>
+      <hr />
+      <h2
+        class="row justify-content-center"
+        style="color: white; font-style: italic;"
+      >
+        Game Count by Category
+      </h2>
+      <div
+        class="row justify-content-center"
+        [hidden]="!categoryChart"
+        style="width: 1000px; margin: 0 auto;"
+      >
+        <canvas id="categoryCanvas"> {{ categoryChart }}</canvas>
+      </div>
+      <hr />
     </div>
   </div>
 </div>

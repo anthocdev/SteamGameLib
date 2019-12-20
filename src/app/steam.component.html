@@ -1,17 +1,20 @@
 <div
-  class="jumbotron jumbotron-fluid background-primary"
-  style="margin-top:57px; padding: 20px; background: rgba(21, 39, 18, 0.63);"
+  class="jumbotron jumbotron-fluid"
+  style="margin-top:80px; padding: 0px;background: inherit;"
 >
   <div style="margin-left: 20px;">
-    <h1 style="color: rgb(19, 216, 150);">Steam Directory</h1>
+    <h1 style="color: rgb(240, 240, 8); font-style: italic;">
+      Steam Directory
+    </h1>
     <div
-      class="stateInfo"
-      style="color: rgb(240, 240, 8); font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; padding-right: 10px;;"
+      class="stateInfo text-white"
+      style=" font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; padding-right: 10px;;"
     >
       <a>Displaying page {{ this.page }}</a> <br />
     </div>
   </div>
 </div>
+<hr style="background: white;" />
 <div class="container-fluid">
   <div class="row" style="padding-left: 10px;">
     <div
@@ -49,7 +52,7 @@
           <option value="2">Ascending</option>
         </select>
         <div class="pageSize" style="border: black; font-size: 15px;">
-          <a style="margin-left: 10px; color: green;">Page Size</a>
+          <a style="margin-left: 10px; color: rgb(240, 240, 8);">Page Size</a>
           <mat-slider
             thumbLabel
             min="1"
@@ -61,7 +64,7 @@
         </div>
         <!-- Search Button-->
         <button
-          class="btn btn-outline-success"
+          class="btn btn-warning"
           type="button"
           (click)="searchName(searchInput.value)"
           style="margin-left: 10px; height: 40px;"
@@ -135,12 +138,27 @@
   <!-- Row -->
   <div class="row fixed-bottom">
     <div class="col-sm-6">
-      <button class="btn btn-dark btn-sm btn-block" (click)="previousPage()">
-        Previous
+      <button
+        mat-raised-button
+        color="accent"
+        class="btn-block"
+        (click)="previousPage()"
+        style="height: 30px;"
+      >
+        Back
       </button>
     </div>
     <div class="col-sm-6 text-right">
-      <button class="btn btn-dark btn-sm btn-block" (click)="nextPage()">
+      <!-- <button class="btn btn-white btn-sm btn-block" (click)="nextPage()">
+        Next
+      </button> -->
+      <button
+        mat-raised-button
+        class="btn-block"
+        color="accent"
+        (click)="nextPage()"
+        style="height: 30px;"
+      >
         Next
       </button>
     </div>

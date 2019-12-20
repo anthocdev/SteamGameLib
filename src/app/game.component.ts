@@ -3,6 +3,8 @@ import { WebService } from "./web.service";
 import { ActivatedRoute } from "@angular/router";
 import { FormBuilder, Validators } from "@angular/forms";
 import { AuthService } from "./auth.service";
+import { MatDialog } from "@angular/material/dialog";
+import { EditCommentComponent } from "./Dialog/editcomment.component";
 
 @Component({
   selector: "game",
@@ -15,9 +17,11 @@ export class GameComponent {
     private webService: WebService,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    public dialog: MatDialog
   ) {}
 
+  appid;
   ngOnInit() {
     this.commentForm = this.formBuilder.group({
       username: [""],
@@ -27,7 +31,6 @@ export class GameComponent {
       reviewType: 2
     });
     this.webService.getGame(this.route.snapshot.params.id);
-    this.webService.getComments(this.route.snapshot.params.id);
   }
 
   onSubmit() {
@@ -40,8 +43,6 @@ export class GameComponent {
     this.commentForm.controls["imageLink"].setValue(
       this.authService.getProfile().picture
     );
-    //console.log(this.commentForm.value);
-    //console.log(this.authService.getProfile());
     this.webService.postComment(this.commentForm.value);
     this.commentForm.reset();
   }
@@ -70,6 +71,19 @@ export class GameComponent {
         return "Positive";
       case 2:
         return "Neutral";
+      default:
+        return "Invalid value";
+    }
+  }
+  /* Returns review type styles by id's */
+  reviewTypeStyle(id) {
+    switch (id) {
+      case 0:
+        return { color: "rgb(228, 4, 4)" };
+      case 1:
+        return { color: "rgb(4, 228, 71)" };
+      case 2:
+        return { color: "white" };
       default:
         return "Invalid value";
     }
@@ -138,5 +152,21 @@ export class GameComponent {
 
   editComment() {
     console.log("Comment Editing to be implemented.");
+  }
+
+  openDialog(commentVal): void {
+    const dialogRef = this.dialog.open(EditCommentComponent, {
+      height: "250px",
+      width: "450px",
+      data: {
+        name: this.authService.getProfile().nickname,
+        commentData: commentVal,
+        gid: this.route.snapshot.params.id
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("The dialog was closed");
+    });
   }
 }
