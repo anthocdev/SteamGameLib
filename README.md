@@ -1,27 +1,34 @@
-# Main
+# Steam Library Browser
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.20.
+Lists a crawled library of steam-games with some classifications and filtering options. JSON File included with data crawled from 2019.
 
-## Development server
+<img src="screenshots/steamlib1.jpg" alt="Preview 1" width="800">
+<img src="screenshots/steamlib2.jpg" alt="Preview 2" width="800">
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Set-Up
 
-## Code scaffolding
+> Extract GameListings.7z within MONGO_IMPORT folder and import the JSON file into your Mongo database.
+>
+> > Over 27,000 STEAM games from from Sept 2019.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+> Install all deps from server/app.py
+>
+> > IMPORTANT - pip install python-jose instead of jose.
 
-## Build
+> npm i all dependenciens in the main directory and ng-serve.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Configure your Auth0/Google API keys for 0Auth authentication to leave/edit/remove comments.
 
-## Running unit tests
+> <img src="screenshots/auth.png" alt="SXContent">
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+I've hardcoded hiding of explicit content, which can be sorted in flask server lines 345-350.
 
-## Running end-to-end tests
+> <img src="screenshots/hardcoded.png" alt="SXContent">
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+### Commenting
 
-## Further help
+<img src="screenshots/steamlib3.jpg" alt="Preview 3" width="800">
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+### Simple Profile
+
+<img src="screenshots/steamlib4.png" alt="Preview 4" width="800">

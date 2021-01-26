@@ -62,7 +62,7 @@ export class WebService {
           "&sortStruct=" +
           sortStruct
       )
-      .subscribe(response => {
+      .subscribe((response) => {
         this.steamGames_private_list = response;
         this.lastPage = this.steamGames_private_list.lastPage;
         this.steamGamesSubject.next(this.steamGames_private_list.gameData);
@@ -73,7 +73,7 @@ export class WebService {
   getGame(id) {
     return this.http
       .get("http://localhost:5000/api/v1.0/games/" + id)
-      .subscribe(response => {
+      .subscribe((response) => {
         this.steamGame_private_list = response;
         this.steamGameSubject.next(this.steamGame_private_list);
         this.appId = id;
@@ -83,7 +83,7 @@ export class WebService {
   getComments(id) {
     return this.http
       .get("http://localhost:5000/api/v1.0/games/" + id + "/comments")
-      .subscribe(response => {
+      .subscribe((response) => {
         this.comments_private_list = response;
         this.commentsSubject.next(this.comments_private_list);
       });
@@ -92,7 +92,7 @@ export class WebService {
   getUserComments(uid) {
     return this.http
       .get("http://localhost:5000/api/v1.0/comments/" + uid)
-      .subscribe(response => {
+      .subscribe((response) => {
         this.userComments_private_list = response;
         this.userCommentsSubject.next(this.userComments_private_list);
       });
@@ -112,6 +112,7 @@ export class WebService {
       currentDate.getFullYear() +
       "-" +
       currentDate.getMonth() +
+      1 +
       "-" +
       currentDate.getDate() +
       " " +
@@ -127,7 +128,7 @@ export class WebService {
         "http://localhost:5000/api/v1.0/games/" + this.appId + "/comments",
         postData
       )
-      .subscribe(response => {
+      .subscribe((response) => {
         this.getGame(this.appId); //Update comments list
       });
   }
@@ -137,7 +138,7 @@ export class WebService {
       .delete(
         "http://localhost:5000/api/v1.0/games/" + gid + "/comments/" + cid
       )
-      .subscribe(response => {
+      .subscribe((response) => {
         console.log(response);
         this.getGame(gid); //Update comments list
       });
@@ -172,7 +173,7 @@ export class WebService {
         "http://localhost:5000/api/v1.0/games/" + gid + "/comments/" + cid,
         editCommentData
       )
-      .subscribe(response => {
+      .subscribe((response) => {
         console.log(response);
         this.getGame(gid);
       });
@@ -181,7 +182,7 @@ export class WebService {
   getPlatformStats() {
     return this.http
       .get("http://localhost:5000/api/v1.0/games/stats/platforms")
-      .subscribe(response => {
+      .subscribe((response) => {
         this.platformStats_private_list = response;
         this.platformStatsSubject.next(this.platformStats_private_list);
       });
@@ -190,7 +191,7 @@ export class WebService {
   getPublisherStats() {
     return this.http
       .get("http://localhost:5000/api/v1.0/games/stats/publisher")
-      .subscribe(response => {
+      .subscribe((response) => {
         this.publisherStats_private_list = response;
         this.publisherStatsSubject.next(this.publisherStats_private_list);
       });
@@ -199,7 +200,7 @@ export class WebService {
   getCategoryStats() {
     return this.http
       .get("http://localhost:5000/api/v1.0/games/stats/categories")
-      .subscribe(response => {
+      .subscribe((response) => {
         this.categoryStats_private_list = response;
         this.categoryStatsSubject.next(this.categoryStats_private_list);
       });
